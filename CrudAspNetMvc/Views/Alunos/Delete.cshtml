@@ -1,0 +1,64 @@
+﻿<!-- A instrução (arroba)model define o tipo de dado com o qual essa view irá lidar. Um único objeto do tipo Aluno -->
+@model CrudAspNetMvc.Models.Aluno
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Aluno</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nome)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nome)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Endereco)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Endereco)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Telefone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telefone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nascimento)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nascimento)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ativo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ativo)
+    </div>
+</fieldset>
+
+<!-- cria um formulário com apenas o botão de submit e o link, para submeter via POST para a action Delete no controller -->
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

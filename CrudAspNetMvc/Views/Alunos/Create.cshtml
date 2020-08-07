@@ -1,0 +1,120 @@
+﻿<!-- 
+A instrução (arroba)model define o tipo de dado com o qual essa view irá lidar. Um único objeto do tipo Aluno. 
+Não recebe nada porque está criando, mas é bom tipar aqui para usar os helpers do Razor e criar os labels e inputs
+-->
+@model CrudAspNetMvc.Models.Aluno
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<!-- 
+Html.BeginForm(): helper do Razor para criar um formulário que vai submeter as informações para o controller. Tudo dentro do "using" faz parte do formulário 
+Como não informamos a action desse form, ele será submetido para a mesma URL em que se encontra (Alunos/Create), porém usando o verbo HTTP POST
+Forms são criados usado o método POST, então aciona o outro método Create do controller com [HttpPost] 
+-->
+@using (Html.BeginForm()) 
+{
+    <!-- 
+    Mecanismo de segurança para impedir que requisições externas sejam feitas para esse formulário. Essa medida visa evitar ataques
+    Gera um input hidden contendo um token de segurança. Esse token é enviado para o controller para garantir que o form está sendo submetido a partir da nossa página e não a partir de um site externo. 
+    -->
+    @Html.AntiForgeryToken()
+
+    <!-- 
+    para exibir em um único local todas as mensagens de validação do formulário, abaixo um exemplo de chamada passando uma classe do bootstrap
+    o argumento true esconde esse bloco com todas as mensagens e false exibe esse bloco
+    (arroba)Html.ValidationSummary(true, "", new { (arroba)class = "text-danger" }) ou Html.ValidationSummary(true)
+    -->
+    @Html.ValidationSummary(false)
+
+    <fieldset>
+        <legend>Aluno</legend>
+
+        <div class="editor-label">
+            <!-- 
+            LabelFor cria uma label para a propriedade nome, já considerando as anotações do tipo Display adicionadas na classe Aluno
+            abaixo um exemplo de chamada passando uma classe do bootstrap
+            (arroba)Html.LabelFor(model => model.Nome, htmlAttributes: new { (arroba)class = "control-label col-md-2" })
+            -->
+            @Html.LabelFor(model => model.Nome)
+        </div>
+        <div class="editor-field">
+            <!-- 
+            EditorFor cria um input para a propriedade nome
+            A expressão lambda informada como parâmetro indica o campo a que esse input se refere e fará com que o atributo name receba o valor igual ao nome da propriedade (name=”Nome”, por exemplo)
+            abaixo um exemplo de chamada passando uma classe do bootstrap
+            (arroba)Html.EditorFor(model => model.Nome, new { htmlAttributes: new { (arroba)class = "form-control" } })
+            -->
+            @Html.EditorFor(model => model.Nome)
+
+            <!-- 
+            para exibir a mensagem de validação do formulário referente à propriedade recebida por parâmetro (via expressão lambda), abaixo um exemplo de chamada passando uma classe do bootstrap
+            (arroba)Html.ValidationMessageFor(model => model.Nome, "", new { (arroba)class = "text-danger" })
+            -->
+            @Html.ValidationMessageFor(model => model.Nome)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Endereco)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Endereco)
+            @Html.ValidationMessageFor(model => model.Endereco)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Telefone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Telefone)
+            @Html.ValidationMessageFor(model => model.Telefone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Nascimento)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Nascimento)
+            @Html.ValidationMessageFor(model => model.Nascimento)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Ativo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Ativo)
+            @Html.ValidationMessageFor(model => model.Ativo)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<!-- 
+Renderiza os scripts da jquery validate (fica na pasta Scripts desse projeto). Os campos são validados no front end e as mensagens exibidas via jquery validate 
+A instrução (arroba)section define uma seção de código HTML que será renderizada em determinado local do corpo da página. 
+Esse local é definido na view _Layout.cshtml com a instrução (arroba)RenderSection("scripts"). Nesse caso, esses scripts serão adicionados no final da página
+
+Scripts.Render tem por argumento o nome do Bundle definido em App_Start -> BundleConfig.cs onde configura os js e css que irá usar
+Bundle é o agrupamento de scripts que são carregados em conjunto pela aplicação
+-->
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

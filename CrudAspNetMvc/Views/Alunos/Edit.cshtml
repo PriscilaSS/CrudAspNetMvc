@@ -1,0 +1,83 @@
+﻿<!-- Igual à view Create.cshtml, mas recebe um objeto do tipo Aluno para editar -->
+@model CrudAspNetMvc.Models.Aluno
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Aluno</legend>
+
+        <!--
+        O helper Html.HiddenFor cria um input do tipo hidden contendo o Id do model. Dessa forma o campo Id será enviado também como um campo do formulário para o controller. 
+        Não é obrigatório, o update funciona sem esse hidden pois no HttpPost recebe um objeto Aluno e acessa seu Id no DbSet do DbContext, o mesmo objeto recebido na view para exibir e editar
+        -->
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Nome)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Nome)
+            @Html.ValidationMessageFor(model => model.Nome)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Endereco)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Endereco)
+            @Html.ValidationMessageFor(model => model.Endereco)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Telefone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Telefone)
+            @Html.ValidationMessageFor(model => model.Telefone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Nascimento)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Nascimento)
+            @Html.ValidationMessageFor(model => model.Nascimento)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Ativo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Ativo)
+            @Html.ValidationMessageFor(model => model.Ativo)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

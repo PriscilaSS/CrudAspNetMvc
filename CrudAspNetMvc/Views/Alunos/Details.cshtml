@@ -1,0 +1,58 @@
+﻿<!-- A instrução (arroba)model define o tipo de dado com o qual essa view irá lidar. Recebe um único objeto do tipo Aluno. -->
+@model CrudAspNetMvc.Models.Aluno
+
+@{
+    ViewBag.Title = "Detalhes"; //aparece no título da página (tag title), usado na _Layout.cshtml
+}
+
+<h2>Detalhes</h2>
+
+<fieldset>
+    <legend>Aluno</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nome)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nome)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Endereco)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Endereco)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Telefone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telefone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nascimento)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nascimento)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ativo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ativo)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

@@ -1,0 +1,92 @@
+﻿<!--
+A instrução (arroba)model define o tipo de dado com o qual essa view irá lidar. Recebe uma lista de objetos do tipo Aluno. 
+A interface IEnumerable é usada por padrão pois ela é implementada por diversas classes nativas do .NET Framework, como a classe List. Com isso podemos passar qualquer uma dessas classes como parâmetro. 
+No método Index dentro do Controller, passamos um objeto do tipo List<Aluno>, gerado a partir do método ToList()
+-->
+@model IEnumerable<CrudAspNetMvc.Models.Aluno>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Alunos</h2>
+
+<!-- início formulário de busca -->
+<!--
+Cria o formulário informando que, ao submeter os dados, irá para: nome da ActionResult, nome do Controller, tipo do envio no caso GET. No exemplo abaixo passa uma classe do bootstrap
+(arroba)using(Html.BeginForm("Index", "Alunos", FormMethod.Get, new { (arroba)class = "form-inline"}))
+O nome do input deve ser igual ao nome do argumento da action Index
+-->
+@using (Html.BeginForm("Index", "Alunos", FormMethod.Get)) //também poderia ser Post, com o token AntiForgeryToken
+{
+    <!-- (arroba)Html.AntiForgeryToken() -->
+    <input type="text" placeholder="Buscar um aluno" name="busca" />
+    <input type="submit" value="Buscar" />
+}
+<!-- fim formulário de busca -->
+
+<p>
+    @Html.ActionLink("Adicionar novo", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            <!-- 
+            Razor é a View Engine do MVC, um elemento do framework que permite escrever código C# dentro da página HTML. O arroba inicia o código C#.
+            Usando uma expressão lambda lê no objeto model, que representa a lista, a propriedade buscada. DisplayNameFor exibe o nome da propriedade.
+            -->
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Endereco)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nascimento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+    </tr>
+
+<!-- 
+Por convenção o ASP.NET MVC mantém sempre o nome "model", a anotação (arroba)model define o tipo de dados que essa view irá lidar
+Model com M Maiúsculo é uma instância, propriedade, do tipo definido no topo dessa view (arroba)model
+-->
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <!-- DisplayFor exibe o valor da propriedade -->
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Endereco)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nascimento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            <!-- Cria links passando o Id desse objeto, o primeiro parâmetro é o texto e o segundo o nome da Action do Controller -->
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
